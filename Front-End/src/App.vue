@@ -1,28 +1,55 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app class="home">
+    <HomePage v-if="logged" />
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+
+import HomePage from './views/Home.vue'; 
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
-</script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 100px;
-}
-</style>
+    HomePage,
+   
+  },
+  data: () => ({
+    logged: true,
+    fonction: "",
+    department: "",
+  }),
+  mounted() {
+    if (this.getUserActive == null) {
+      this.logged = false;
+    } else if (this.getUserActive != null) {
+      this.fonction = this.getUserActive?.fonction?.name;
+      this.department = this.getUserActive?.fonction?.department?.name;
+      this.logged = true;
+    }
+  },
+  computed: {
+  },
+  watch: {},
+  methods: {
+    initialize() { },
+    logout() {
+      localStorage.clear();
+      this.$router.push({
+        name: "Login",
+      });
+      window.location.reload();
+    },
+    changepassword() {
+      this.model.id = this.getUserActive.id;
+      if (this.model.password == this.Validpassword) {
+        this.changePasswordAction(this.model).then(() => {
+          this.dialog = false;
+        });
+      }
+    },
+  },
+};
+</script>
