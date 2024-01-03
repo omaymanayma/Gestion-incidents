@@ -22,7 +22,7 @@ import UserProfile from '@/layouts/components/UserProfile.vue'
 
       <VSpacer />
 
-      <a
+      <!-- <a
         href="https://github.com/themeselection/materio-vuetify-vuejs-admin-template-free"
         target="_blank"
         rel="noopener noreferrer"
@@ -32,7 +32,7 @@ import UserProfile from '@/layouts/components/UserProfile.vue'
           class="ms-6 me-4"
           icon="mdi-github"
         />
-      </a>
+      </a> -->
       <NavbarThemeSwitcher />
       <VBtn
         icon

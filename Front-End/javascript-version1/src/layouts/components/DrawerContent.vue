@@ -22,11 +22,11 @@ const upgradeBanner = computed(() => {
       class="app-logo d-flex align-center gap-x-3 app-title-wrapper"
     >
       <!-- ℹ️ You can also use img tag or VImg here -->
-      <div v-html="logo" />
+      <!-- <div v-html="logo" /> -->
 
       <Transition name="vertical-nav-app-title">
         <h1 class="font-weight-semibold leading-normal text-xl text-uppercase">
-          Materio
+          Gestion Incidents
         </h1>
       </Transition>
     </RouterLink>
@@ -78,9 +78,9 @@ const upgradeBanner = computed(() => {
     />
 
     <!-- 👉 User Interface -->
-    <VerticalNavSectionTitle :item="{ heading: 'User Interface' }" />
+    <!-- <VerticalNavSectionTitle :item="{ heading: 'User Interface' }" /> -->
 
-    <VerticalNavLink
+    <!-- <VerticalNavLink
       :item="{
         title: 'Typography',
         to: 'typography',
@@ -114,7 +114,7 @@ const upgradeBanner = computed(() => {
         to: 'form-layouts',
         icon: { icon: 'mdi-form-select' }
       }"
-    />
+    /> -->
   </ul>
 
   <!-- 👉 illustration -->
