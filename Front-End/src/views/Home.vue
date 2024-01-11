@@ -1,6 +1,6 @@
 <template>
     <v-card class="overflow-hidden">
-        <v-app-bar color="#fff" style="border-bottom: 2px solid #002f6c">
+        <v-app-bar v-if="showAppBar" color="#fff" style="border-bottom: 2px solid #002f6c">
             <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
             <v-toolbar-title>
@@ -8,7 +8,7 @@
                     src=""></v-img>
             </v-toolbar-title>
 
-            <h4 class="title">Gestion Workorder</h4>
+            <h4 class="title">Gestion Incidents</h4>
             <v-spacer></v-spacer>
 
             <template>
@@ -66,11 +66,17 @@
                     <v-list>
                         
                         <v-list-item-group  active-class="activeDrawer" class="itemDrawer">
-                            <router-link class="linktext" to="/WOchecklist">
-                                <div class="itemdrawer">
-                                    <v-list-item class="itemd"> Workorder Checklist </v-list-item>
-                                </div>
-                            </router-link>
+                            
+                                <router-link class="linktext" to="/incidents">
+                                        <div class="itemdrawer">
+                                            <v-list-item class="itemd"> Dashboard Incidents </v-list-item>
+                                        </div>
+                                    </router-link>
+                                     <router-link class="linktext" to="/users">
+                                            <div class="itemdrawer">
+                                                <v-list-item class="itemd"> Dashboard users </v-list-item>
+                                            </div>
+                                        </router-link>
                         </v-list-item-group>
                     </v-list>
                 </v-list-item-group>
@@ -88,6 +94,8 @@ export default {
     components: {},
     data() {
         return {
+            showAppBar: false,
+
             drawer: false,
             dialogNotif: false,
             logged: false,

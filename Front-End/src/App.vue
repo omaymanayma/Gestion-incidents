@@ -1,6 +1,6 @@
 <template>
   <v-app class="home">
-    <HomePage v-if="logged" />
+    <HomePage  />
   </v-app>
 </template>
 
