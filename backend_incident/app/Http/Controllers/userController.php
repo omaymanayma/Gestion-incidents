@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Validator;
@@ -38,9 +39,10 @@ class userController extends Controller
            $resArr=[] ; 
            $resArr['token']=$user->createToken('api-application')->accessToken;
            $resArr['name']=$user->name ;
+           $resArr['role'] = $user->role;
            return response()->json([$resArr ,200 ]);
          }else{
-            return response()->json(['error'=>'Unauthorized Access'],203);
+            return response()->json(['error'=>'Unauthorized Access'], Response::HTTP_UNAUTHORIZED);
          }
         }
 
