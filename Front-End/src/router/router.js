@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import GestionIncidents from '../views/GestionIncidents.vue'
 import GestionUsers from '../views/GestionUsers.vue'
-import Login from '../views/Login.vue'
+import LoginHome from '../views/LoginHome.vue'
 
 
 
@@ -14,8 +14,8 @@ const routes = [
 
     {
         path: '/',
-        name: 'Login',
-        component: Login,
+        name: 'LoginHome',
+        component: LoginHome,
     },
     
    

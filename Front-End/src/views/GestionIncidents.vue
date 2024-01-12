@@ -1,6 +1,5 @@
 <template>
     <div style="padding: 50px; padding-top: 8%">
-    <NavBar></NavBar>
         
         <v-data-table :headers="headers" :items="incidents" sort-by="item.id_incident" class="elevation-1" :search="search"
             :loading="loading">
@@ -144,13 +143,11 @@
 </template>
 
 <script>
-import NavBar from "@/components/NavBar.vue";
 
 
 export default {
     name: "IncidentsGestion",
      components: {
-        NavBar, // Include the NavBar component in the components section
     },
 
     data() {

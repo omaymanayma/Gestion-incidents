@@ -1,5 +1,6 @@
 <template>
     <div style="padding: 50px; padding-top: 8%">
+
         <v-data-table :headers="headers" :items="responsables" sort-by="item.id_responsable" class="elevation-1"
             :search="search" :loading="loading">
             <template v-slot:top>
@@ -44,8 +45,11 @@
 
 <script>
 
+
 export default {
     name: "GestionUsers",
+     components: {
+    },
 
     data() {
         return {

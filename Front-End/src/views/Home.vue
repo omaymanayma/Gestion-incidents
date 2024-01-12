@@ -91,10 +91,11 @@
 <script>
 
 export default {
-    components: {},
+    components: {
+    },
     data() {
         return {
-            showAppBar: false,
+            showAppBar: true,
 
             drawer: false,
             dialogNotif: false,
@@ -134,7 +135,10 @@ export default {
     },
 
     mounted() {
-   },
+        // Initialiser la propriété showAppBar en fonction de la route actuelle
+        this.showAppBar = this.$route.name !== 'LoginHome';
+    },
+
     computed: {
     },
     watch: {
