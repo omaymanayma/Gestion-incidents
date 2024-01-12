@@ -79,12 +79,7 @@ export default {
 
     methods: {
         postData(e) {
-            this.axios.post("http://localhost:3000/posts/", this.posts)
-                .then((result) => {
-                    console.warn(result)
-                }
-                )
-            e.preventDefault();
+           
         }
         
     }
@@ -112,7 +107,7 @@ body {
     position: relative;
     height: 100%;
     flex-shrink: 0;
-    background: var(--Blue, linear-gradient(180deg, #0575E6 0%, #02298A 84.79%, #021B79 100%));
+    background: var(--Blue, linear-gradient(180deg, #8daac6 0%, #002f6c 84.79%, #002f6c 100%));
 }
 
 .textLeftSide {
@@ -150,7 +145,7 @@ body {
     align-items: center;
     gap: 10px;
     border-radius: 30px;
-    background: #0575E6;
+background: #002f6c;
     color: #FFF;
     font-family: 'Poppins';
     font-size: 12px;
@@ -164,7 +159,7 @@ body {
     /* left: 10%; */
     right: 65%;
     border-radius: 557px;
-    border: 1px solid #0575E6;
+    border: 1px solid #8eb7ec;
     width: 500px;
     height: 500px;
     flex-shrink: 0;
@@ -175,7 +170,7 @@ body {
     top: 435px;
     right: 60%;
     border-radius: 557px;
-    border: 1px solid #0575E6;
+    border: 1px solid #86afe5;
     width: 500px;
     height: 500px;
     flex-shrink: 0;
@@ -297,7 +292,7 @@ body {
     align-items: center;
     gap: 7px;
     border-radius: 30px;
-    background: #0575E6;
+background: #002f6c;
     font-family: 'Poppins';
     color: #FFF;
     font-size: 14px;
