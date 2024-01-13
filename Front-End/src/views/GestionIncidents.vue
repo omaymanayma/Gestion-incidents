@@ -59,7 +59,51 @@
                             </v-card-actions>
                         </v-card>
                     </v-dialog>
-                
+                    <v-dialog v-model="dialogModifier" max-width="700px">
+                       
+                        <v-card>
+                            <v-toolbar dark color="primary">
+                                <v-btn icon dark @click="close(item)">
+                                    <v-icon>mdi-close</v-icon>
+                                </v-btn>
+                                <v-toolbar-title>Edit INCIDENT</v-toolbar-title>
+                                <v-spacer></v-spacer>
+                                <v-toolbar-items> </v-toolbar-items>
+                            </v-toolbar>
+                            <v-card-title class="text-h5 grey--text text--darken-3">
+                                Incident Details:
+                            </v-card-title>
+                            <v-container>
+                                <v-row>
+                                    <v-col cols="12" sm="6">
+                                        <v-text-field v-model="editedItem.nom" label="Nom" outlined></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" sm="6">
+                                        <v-text-field v-model="editedItem.type" label="Type" outlined></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" sm="6">
+                                        <v-text-field v-model="editedItem.date" label="Date" outlined></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" sm="6">
+                                        <v-text-field v-model="editedItem.description" label="Description"
+                                            outlined></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" sm="6">
+                                        <v-text-field v-model="editedItem.location" label="Location"
+                                            outlined></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" sm="6">
+                                        <v-text-field v-model="editedItem.userId" label="UserID" outlined></v-text-field>
+                                    </v-col>
+                                </v-row>
+                            </v-container>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn depressed color="" @click="dialog = false"> Close </v-btn>
+                                <v-btn depressed color="primary" @click="save()"> Save </v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </v-dialog>
                     <v-dialog v-model="dialogConfirmationModifier" max-width="600px">
                 <v-card>
                      <v-toolbar dark color="error">
@@ -153,6 +197,7 @@ export default {
     data() {
         return {
             dialog: false,
+            dialogModifier: false,
             search: "",
             loading: "false",
             headers: [
