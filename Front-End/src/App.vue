@@ -25,8 +25,7 @@ export default {
     if (this.getUserActive == null) {
       this.logged = false;
     } else if (this.getUserActive != null) {
-      this.fonction = this.getUserActive?.fonction?.name;
-      this.department = this.getUserActive?.fonction?.department?.name;
+
       this.logged = true;
     }
   },
