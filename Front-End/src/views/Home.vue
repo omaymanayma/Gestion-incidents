@@ -67,7 +67,8 @@
                         
                         <v-list-item-group  active-class="activeDrawer" class="itemDrawer">
                             
-                                <router-link class="linktext" to="/incidents">
+                            <template >
+                                    <router-link class="linktext" to="/incidents">
                                         <div class="itemdrawer">
                                             <v-list-item class="itemd"> Dashboard Incidents </v-list-item>
                                         </div>
@@ -77,6 +78,8 @@
                                                 <v-list-item class="itemd"> Dashboard users </v-list-item>
                                             </div>
                                         </router-link>
+                            </template>
+                            
                         </v-list-item-group>
                     </v-list>
                 </v-list-item-group>
@@ -190,3 +193,5 @@ export default {
 </script>
 
 <style lang="scss" scoped></style>
+
+  

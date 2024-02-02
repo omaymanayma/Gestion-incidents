@@ -1,3 +1,4 @@
+<!-- Barchart.vue -->
 <template>
   <div>
     <canvas ref="barChart"></canvas>
@@ -8,57 +9,46 @@
 import Chart from "chart.js/auto";
 
 export default {
-  props: [],
-
+  props: ['chartData'],
   data() {
     return {
-      chartData: [],
-      chartOptions: {
-        // Define chart options if needed
-      },
       chart: null,
+      chartOptions: {
+        // Add any Chart.js options you need
+      },
     };
   },
   methods: {
-    async fetchData() {
-      // Make API request to fetch data
-      try {
-        // const response = await this.DataList;
-        // const data = await response.json();
-        this.chartData = await this.modelTotal;
-        this.renderChart();
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    },
-    renderChart(data) {
-      // Render the chart
+   renderChart(chartData) {
       if (this.chart) {
-        this.chart.destroy(); // Destroy existing chart to prevent duplicates
+        this.chart.destroy();
       }
 
       const ctx = this.$refs.barChart.getContext("2d");
       this.chart = new Chart(ctx, {
         type: "bar",
         data: {
-          labels: ["TODO", "INPROGRESS", "DONE", "CLOSED"],
+          labels: ["Pannes Informatiques", "Problèmes de Logistique", "Défaillances Électriques", "Perturbations Audiovisuelles"],
           datasets: [
             {
               label: "",
-              backgroundColor: ["#F44336", "#FF9800", "#4CAF50", "#009688"],
+              backgroundColor: ["#002f6c", "#2d63a8", "#6094d6", "#86afe5"],
               borderWidth: 1,
               borderRadius: 5,
-              data: data,
+              data: chartData, // Use the parameter name here
             },
           ],
         },
-        options: this.chartOptions,
+        options: this.chartOptions, // Include chartOptions here
       });
     },
+
   },
   mounted() {
-    this.fetchData();
+    console.log('Chart Component - chartData:', this.chartData);
+    this.renderChart();
   },
+
 };
 </script>
 

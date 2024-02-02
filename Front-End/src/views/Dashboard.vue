@@ -21,17 +21,16 @@
             <template>
               <div>
                 <h1></h1>
-                <Barchart ref="BarChartComponentRef"></Barchart>
-              </div>
+  <Barchart ref="BarChartComponentRef" :chartData="Object.values(modelTotal)"></Barchart>
+                </div>
             </template>
           </v-col>
           <v-col cols="3">
             <template>
               <div>
                 <h1></h1>
-                <DoughnutChart
-                  ref="DoughnutChartComponentRef"
-                />
+                <DoughnutChart ref="DoughnutChartComponentRef" :chartData="Object.values(modelTotal)"></DoughnutChart>
+
               </div>
             </template>
           </v-col>
@@ -46,7 +45,7 @@
   import Card from "../components/Dashboard/Card.vue";
   import Barchart from "../components/Dashboard/Barchart.vue";
   import DoughnutChart from "../components/Dashboard/DoughnutChart.vue";
-  
+  import axios from "axios";
   export default {
     components: {
       Card,
@@ -58,90 +57,75 @@
         header: [
           {
             id: 1,
-            title: "TODO",
-            icon: "bell-alert",
+            title: "Pannes Informatiques",
+            icon: "desktop-classic",
             color: "red",
           },
           {
             id: 2,
-            title: "INPROGRESS",
-            icon: "bell-cog",
+            title: "Problèmes de Logistique",
+            icon: "alert-circle-outline",
             color: "orange",
           },
           {
             id: 3,
-            title: "DONE",
-            icon: "bell-check",
-            color: "green",
+            title: "Défaillances Électriques",
+            icon: "flash-alert",
+            color: "yellow",
           },
           {
             id: 4,
-            title: "CLOSED",
-            icon: "check-all",
+            title: "Perturbations Audiovisuelles",
+            icon: "television-speaker-off",
             color: "teal",
           },
         ],
-        modelTotal: {
-          TODO: 1,
-          INPROGRESS: 2,
-          DONE: 4,
-          CLOSED: 5,
-        },
-        modelPostFiltre: {
-          department_name: "",
-        },
+        modelTotal: {},
+        
         
       };
     },
-    computed: {
-    },
-    mounted() {
-      this.initialize();
-    },
+    
+    
   
     methods: {
-      initialize() {
+    async initialize() {
+        try {
+          const response = await axios.get('http://localhost:8000/api/countByType');
+          const incidentCounts = response.data;
 
+          console.log('Incident Counts:', incidentCounts);
 
-          this.$refs.BarChartComponentRef.renderChart([
-              this.modelTotal.TODO,
-              this.modelTotal.INPROGRESS,
-              this.modelTotal.DONE,
-              this.modelTotal.CLOSED,
-            ]);
-            this.$refs.DoughnutChartComponentRef.renderChart([
-              this.modelTotal.TODO,
-              this.modelTotal.INPROGRESS,
-              this.modelTotal.DONE,
-              this.modelTotal.CLOSED,
-            ]);
-        /* this.dashbord_totalWORKORDERAction(this.modelPostFiltre).then(
-          (resolve) => {
-            console.info("total", resolve);
-  
-            this.modelTotal.TODO = resolve.todo_total;
-            this.modelTotal.INPROGRESS = resolve.inprogress_total;
-            this.modelTotal.DONE = resolve.done_total;
-            this.modelTotal.CLOSED = resolve.closed_total;
-            this.$refs.BarChartComponentRef.renderChart([
-              this.modelTotal.TODO,
-              this.modelTotal.INPROGRESS,
-              this.modelTotal.DONE,
-              this.modelTotal.CLOSED,
-            ]);
-            this.$refs.DoughnutChartComponentRef.renderChart([
-              this.modelTotal.TODO,
-              this.modelTotal.INPROGRESS,
-              this.modelTotal.DONE,
-              this.modelTotal.CLOSED,
-            ]);
-           
-  
-            console.info("this.modelTotal", this.modelTotal);
-          }
-        ); */
+          incidentCounts.forEach(item => {
+            const key = item.type.toUpperCase().replace(/\s+/g, '_');
+            this.$set(this.modelTotal, key, item.count);
+          });
+
+          console.log('Model Total:', this.modelTotal);
+
+          this.$refs.BarChartComponentRef.renderChart(Object.values(this.modelTotal));
+          this.$refs.DoughnutChartComponentRef.renderChart(Object.values(this.modelTotal));
+        } catch (error) {
+          console.error('Error fetching incident counts:', error);
+        }
       },
+
+
+
     },
+
+
+   async mounted() {
+      await this.initialize();
+    }
+
+
+
+
+
+      
+      
+    
   };
   </script>
   

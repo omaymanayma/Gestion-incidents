@@ -1,27 +1,24 @@
 <template>
-    <div class="card" >
-      <div class="card_load">
-        <v-icon medium :color="color_item" large> mdi-{{icon}} </v-icon>
-      </div>
-      <div class="card_load_extreme_title">{{ title }}</div>
-      <div class="card_load_extreme_descripion" >{{ modelTotal[title] }}</div>
+  <div class="card">
+    <div class="card_load">
+      <v-icon medium :color="color_item" large> mdi-{{ icon }} </v-icon>
     </div>
+    <div class="card_load_extreme_title">{{ title }}</div>
+    <div class="card_load_extreme_descripion">{{ modelTotal[title.toUpperCase().replace(/\s+/g, '_')] }}</div>
+  </div>
 </template>
 
 <script>
 export default {
   name: "WorkorderFrontendCard",
-  props: ['icon','color_item','title','modelTotal'],
+  props: ['icon', 'color_item', 'title', 'modelTotal'],
 
-  data() {
-    return {};
+  mounted() {
+    console.log('Card Component - modelTotal:', this.modelTotal);
   },
-
-  mounted() {},
-
-  methods: {},
 };
 </script>
+
 
 <style lang="scss" scoped>
 .card {

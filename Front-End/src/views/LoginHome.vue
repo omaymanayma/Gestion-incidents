@@ -22,6 +22,9 @@
                     <div class="LoginTitre">
                         <p class="titre">Welcome! </p>
                         <p class="text">Sign in</p>
+                        <div class="show-errors" v-if="incorect">
+                            Password or Email incorrect!
+                        </div>
                         <form method="post">
                             <div class="logoEmail">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -68,12 +71,16 @@ import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
 export default {
     name: "LoginHome",
+
     data() {
         return {
+            incorect: false,
+            errorList: [],
             model: {
                 user: {
                     email: '',
                     password: '',
+                    role: '',
                 }
 
             }
@@ -81,31 +88,52 @@ export default {
 
     },
     methods: {
-       connection() {
+        connection() {
+            let user;
             axios.post('http://127.0.0.1:8000/api/login', this.model.user)
-                .then(res => {
-                    console.log(res)
-                    alert(res.data.message);
+                .then(response => {
+                    console.log('Response:', response);
+                    if (Array.isArray(response.data) && response.data.length > 0) {
 
+                        const responseData = response.data[0];
+
+                        const { token, name, role } = responseData;
+
+                        if (token && name ) {
+                            // Uncomment the following line if you want to clear the incorrect flag on successful login
+
+                            localStorage.setItem('token', token);
+
+                            if (role == 1) {
+                                this.$router.push('/users');
+                            } else if (role == 0) {
+                                this.$router.push('/dashboard');
+                            }
+                        } else {
+                            // Uncomment the following line if you want to set the incorrect flag on unsuccessful login
+                            this.incorect = true;
+                        }
+                    } else {
+                        // Uncomment the following line if you want to set the incorrect flag on unsuccessful login
+                        this.incorect = true;
+                    }
+                    // Clear the form
                     this.model.user = {
                         email: '',
                         password: '',
-                    }
+                        role: '',
+                    };
                 })
-                .catch(function (error) {
-                    if (error.response) {
-                        console.log(error.response.data);
-                        console.log(error.response.status);
-                        console.log(error.response.headers);
-                    } else if (error.request) {
-                        console.log(error.request);
+                .catch(error => {
+                    if (error.response && error.response.status === 203) {
+                        console.error('Incorrect credentials');
+                        this.incorect = true;
                     } else {
-                        console.log('Error', error.message);
+                        console.error('Error:', error.message);
                     }
-                    console.log(error.config);
-                })
+                });
         }
-    },
+    }
 }
 </script>
 <style>
@@ -237,13 +265,25 @@ body {
     line-height: normal;
 }
 
+.show-errors {
+    position: absolute;
+    top: 170px;
+    left: 143px;
+    color: #dd1515;
+    font-family: 'Poppins';
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
 #email {
     z-index: 1;
     position: absolute;
     top: 210px;
     left: 140px;
     display: flex;
-    width: 245px;
+    width: 320px;
     padding: 10px 35px;
     flex-direction: column;
     justify-content: center;
@@ -256,7 +296,7 @@ body {
 
 .logoEmail {
     position: absolute;
-    top: 217px;
+    top: 221px;
     left: 149px;
     z-index: 2;
     width: 24px;
@@ -275,7 +315,7 @@ body {
     top: 260px;
     left: 140px;
     display: flex;
-    width: 245px;
+    width: 320px;
     padding: 10px 35px;
     flex-direction: column;
     justify-content: center;
@@ -288,7 +328,7 @@ body {
 
 .passwordLogo {
     position: absolute;
-    top: 265px;
+    top: 269px;
     left: 149px;
     z-index: 2;
     width: 24px;
@@ -331,7 +371,7 @@ body {
 .forgotPassword {
     position: absolute;
     top: 380px;
-    left: 39%;
+    left: 36%;
     display: flex;
     color: #333;
     font-family: Poppins;
@@ -340,5 +380,4 @@ body {
     font-weight: 400;
     line-height: normal;
     opacity: 0.7;
-}
-</style>
+}</style>

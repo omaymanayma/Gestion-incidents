@@ -1,3 +1,4 @@
+<!-- DoughnutChart.vue -->
 <template>
   <div>
     <canvas ref="doughnutChart"></canvas>
@@ -8,45 +9,47 @@
 import Chart from "chart.js/auto";
 
 export default {
-  props: [],
+  
+  props: ['chartData'],
   data() {
     return {
-      chartData: {
-        labels: ["TODO", "INPROGRESS", "DONE", "CLOSED"],
-        datasets: [
-          {
-            data: [],
-            backgroundColor: ["#F44336", "#FF9800", "#4CAF50", "#009688"],
-          },
-        ],
-      },
+      chart: null,
     };
   },
-  watch: {
-    chartData: function () {
-      this.renderChart();
-    },
-  },
-  mounted() {
-    this.renderChart();
-  },
   methods: {
-    renderChart(data) {
+   renderChart(chartData) {
       const ctx = this.$refs.doughnutChart.getContext("2d");
-      this.chartData.datasets[0].data = data;
       if (this.chart) {
         this.chart.destroy();
       }
 
       this.chart = new Chart(ctx, {
         type: "doughnut",
-        data: this.chartData,
+        data: {
+          labels: ["Pannes Informatiques", "Problèmes de Logistique", "Défaillances Électriques", "Perturbations Audiovisuelles"],
+          datasets: [
+            {
+              data: chartData, // Utilisez le paramètre chartData ici
+              backgroundColor: ["#002f6c", "#2d63a8", "#6094d6", "#86afe5"],
+            },
+          ],
+        },
         options: {
           responsive: false,
           maintainAspectRatio: false,
         },
       });
     },
+
   },
+  mounted() {
+    console.log('Chart Component - chartData:', this.chartData);
+    this.renderChart();
+  },
+
 };
 </script>
+
+<style scoped>
+/* Add any custom styles if needed */
+</style>
